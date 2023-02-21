@@ -1,18 +1,17 @@
-import React, { useState } from "react";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import { CssBaseline, ThemeProvider, createMuiTheme } from "@material-ui/core";
-import Content from "./Content";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
 const drawerWidth = 240;
 import axios from "axios";
+import Header from "./Header";
+import Content from "./Content";
+import Sidebar from "./Sidebar";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { CssBaseline, ThemeProvider, createTheme, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex"
   },
-
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -40,10 +39,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function App() {
+
   const classes = useStyles();
-  const [data, setData] = React.useState(undefined);
   const [open, setOpen] = useState(true);
+  const [symbol, setSymbol] = useState('IBM')
   const [darkMode, setDarkMode] = useState(true);
+  const [data, setData] = React.useState(undefined);
 
   const handleDrawerToggle = () => {
     setOpen(!open);
@@ -53,20 +54,21 @@ export default function App() {
     setOpen(false);
   };
 
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       type: darkMode ? "dark" : "light"
     }
   });
 
   const symbols = ["IBM", "AMZN", "GOOG", "MSFT", "TSLA", "FB", "JPM", "V", "NVDA", "NFLX"];
-  const baseURL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbols[7]}&interval=5min&apikey=V41KZM1499BW2QG2`
+
+  const baseURL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=V41KZM1499BW2QG2`
 
   React.useEffect(() => {
     axios.get(baseURL).then((response) => {
       setData(response.data);
     });
-  }, []);
+  }, [symbol]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -114,7 +116,8 @@ export default function App() {
             [classes.contentShift]: open
           })}>
           <div className={classes.drawerHeader} />
-          {data && <Content data={makeitAnalytics()} />}
+
+          {data && <Content meta={data['Meta Data']} data={makeitAnalytics()} setSymbol={setSymbol} symbol={symbol} />}
         </main>
       </div>
     </ThemeProvider>

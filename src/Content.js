@@ -8,6 +8,7 @@ import AreaChart from "./AreaChart";
 import BarChart from "./BarChart";
 import ScatterChart from "./ScatterChart";
 const originalItems = ["a", "b", "c", "d"];
+import { Box, Typography } from "@material-ui/core";
 
 const initialLayouts = {
   lg: [
@@ -24,7 +25,7 @@ const componentList = {
   c: BarChart,
   d: ScatterChart
 };
-function Content({ size: { width }, data }) {
+function Content({ size: { width }, data, setSymbol, symbol, meta }) {
 
   const [items, setItems] = useState(originalItems);
   const [layouts, setLayouts] = useState(
@@ -45,7 +46,10 @@ function Content({ size: { width }, data }) {
 
   return (
     <>
-      <TopBar />
+      <Box sx={{ m: 2 }}>
+        <Typography align="center" variant="h1">{meta["2. Symbol"]}</Typography>
+      </Box>
+      <TopBar setSymbol={setSymbol} symbol={symbol} />
       <ResponsiveGridLayout
         layouts={layouts}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
@@ -72,7 +76,6 @@ function Content({ size: { width }, data }) {
 }
 
 export default withSize({ refreshMode: "debounce", refreshRate: 60 })(Content);
-
 function getFromLS(key) {
   let ls = {};
   if (global.localStorage) {

@@ -2,6 +2,7 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1),
@@ -10,15 +11,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end"
   }
 }));
-export default function TopBar() {
 
-  const [age, setAge] = React.useState('');
-
+export default function TopBar({ setSymbol, symbol }) {
+  const classes = useStyles();
+  const symbols = ["IBM", "AMZN", "GOOG", "MSFT", "TSLA", "FB", "JPM", "V", "NVDA", "NFLX"];
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setSymbol(event.target.value);
   }
 
-  const classes = useStyles();
   return (
     <Card className={classes.root}>
       <FormControl fullWidth>
@@ -26,12 +26,12 @@ export default function TopBar() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={symbol}
           label="Age"
           onChange={handleChange}>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {symbols.map((name, index) => (
+            <MenuItem key={index} value={name}>{name}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Card>
