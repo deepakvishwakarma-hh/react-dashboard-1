@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-// import IconButton from "@material-ui/core/IconButton";
-// import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
@@ -32,7 +30,7 @@ const widgetNames = {
   c: "Bar Chart",
   d: "Scatter Chart"
 };
-export default function Widget({ id, onRemoveItem, component: Item, data }) {
+export default function Widget({ id, component: Item, data }) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>

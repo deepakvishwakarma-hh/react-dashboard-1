@@ -4,15 +4,13 @@ import Widget from "./Widget";
 import LineChart from "./LineChart";
 import AreaChart from "./AreaChart";
 import BarChart from "./BarChart";
-import ScatterChart from "./ScatterChart";
-const originalItems = ["a", "b", "c", "d"];
+const originalItems = ["a", "b", "c"];
 import { Box, Typography } from "@material-ui/core";
 
 const componentList = {
   a: LineChart,
   b: AreaChart,
   c: BarChart,
-  d: ScatterChart
 };
 
 export default function Content({ data, setSymbol, symbol, meta }) {

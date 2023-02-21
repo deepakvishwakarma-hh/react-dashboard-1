@@ -6,7 +6,7 @@ import Content from "./Content";
 import Sidebar from "./Sidebar";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { CssBaseline, ThemeProvider, createTheme, Box } from "@material-ui/core";
+import { CssBaseline, ThemeProvider, createTheme, Box, CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,8 +77,7 @@ export default function App() {
     let arr = []
     const A = data['Time Series (5min)']
     const B = Object.keys(A)
-    const C = B.slice(0, 6)
-    console.log(C)
+    const C = B.slice(0, 8)
     C.forEach((key) => {
       let perfact = {
         open: parseFloat(A[key]['1. open']),
@@ -96,14 +95,11 @@ export default function App() {
     return arr
   }
 
-  if (!data) {
-    return <div>
-      loading....
-    </div>
-  }
 
   return (
     <ThemeProvider theme={theme}>
+
+
       <div className={classes.root}>
         <CssBaseline />
         <Header handleDrawerToggle={handleDrawerToggle} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
@@ -113,6 +109,9 @@ export default function App() {
             [classes.contentShift]: open
           })}>
           <div className={classes.drawerHeader} />
+          {!data && <Box sx={{ width: "100%", height: "50vh", display: 'grid', placeItems: "center" }}>
+            <CircularProgress color="white" />
+          </Box>}
           {data && <Content meta={data['Meta Data']} data={makeitAnalytics()} setSymbol={setSymbol} symbol={symbol} />}
         </main>
       </div>
