@@ -73,6 +73,11 @@ export default function Header({
           aria-label="open drawer"
           edge="start"
           className={classes.rightIcons}
+          onClick={() => {
+            localStorage.removeItem('user')
+            location.reload()
+
+          }}
         >
           <AccountCircleIcon />
         </IconButton>

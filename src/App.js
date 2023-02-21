@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 import React, { useState } from "react";
 import { wrapper as useStyles } from './styles'
 import { CssBaseline, ThemeProvider, createTheme, Box, CircularProgress } from "@material-ui/core";
-
+import Login from "./Login";
 export default function App() {
 
   const classes = useStyles();
@@ -60,7 +60,12 @@ export default function App() {
         ...perfact
       })
     })
+
     return arr
+  }
+
+  if (localStorage.getItem('user') !== 'authenticated') {
+    return <Login />
   }
 
   return (
