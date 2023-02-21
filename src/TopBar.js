@@ -1,10 +1,7 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import SaveIcon from "@material-ui/icons/Save";
-import AddList from "./AddList";
-
+import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1),
@@ -13,25 +10,30 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end"
   }
 }));
-export default function TopBar({
-  onLayoutSave,
-  items,
-  onRemoveItem,
-  onAddItem,
-  originalItems
-}) {
+export default function TopBar() {
+
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  }
+
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <AddList
-        items={items}
-        onRemoveItem={onRemoveItem}
-        onAddItem={onAddItem}
-        originalItems={originalItems}
-      />
-      <IconButton aria-label="save" onClick={onLayoutSave}>
-        <SaveIcon />
-      </IconButton>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Symbol</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
     </Card>
   );
 }

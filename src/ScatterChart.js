@@ -18,7 +18,7 @@ const data = [
   { x: 110, y: 280, z: 200 }
 ];
 
-export default function Chart() {
+export default function Chart({ data }) {
   return (
     <ResponsiveContainer width="99%" height="99%">
       <ScatterChart
@@ -32,8 +32,8 @@ export default function Chart() {
         height={300}
       >
         <CartesianGrid />
-        <XAxis type="number" dataKey="x" name="stature" unit="cm" />
-        <YAxis type="number" dataKey="y" name="weight" unit="kg" />
+        <XAxis type="number" dataKey="open" name="stature" unit="cm" />
+        <YAxis type="number" dataKey="volume" name="weight" unit="kg" />
         <Tooltip cursor={{ strokeDasharray: "3 3" }} />
         <Scatter name="A school" data={data} fill="#8884d8" />
       </ScatterChart>

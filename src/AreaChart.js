@@ -54,7 +54,8 @@ const data = [
   }
 ];
 
-export default function Chart() {
+export default function Chart({ data }) {
+  console.log(data)
   return (
     <ResponsiveContainer width="99%" height="99%">
       <AreaChart
@@ -72,14 +73,14 @@ export default function Chart() {
         <Tooltip />
         <Area
           type="monotone"
-          dataKey="uv"
+          dataKey="open"
           stackId="1"
           stroke="#8884d8"
           fill="#8884d8"
         />
         <Area
           type="monotone"
-          dataKey="pv"
+          dataKey="close"
           stackId="1"
           stroke="#82ca9d"
           fill="#82ca9d"

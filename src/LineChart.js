@@ -10,7 +10,9 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const data = [
+
+
+const data1 = [
   {
     name: "Page A",
     uv: 4000,
@@ -55,7 +57,27 @@ const data = [
   }
 ];
 
-export default function Chart() {
+
+import { data } from './data'
+
+
+// refine object which will make suitable for this chart
+
+
+
+
+// V41KZM1499BW2QG2
+
+
+
+
+
+
+
+
+
+
+export default function Chart({ data }) {
   return (
     <ResponsiveContainer width="99%" height="99%">
       <LineChart
@@ -72,13 +94,13 @@ export default function Chart() {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line
+        {/* <Line
           type="monotone"
-          dataKey="pv"
+          dataKey="open"
           stroke="#8884d8"
           activeDot={{ r: 8 }}
-        />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        /> */}
+        <Line type="monotone" dataKey="volume" stroke="#82ca9d" />
       </LineChart>
     </ResponsiveContainer>
   );

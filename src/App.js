@@ -5,8 +5,8 @@ import { CssBaseline, ThemeProvider, createMuiTheme } from "@material-ui/core";
 import Content from "./Content";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-
 const drawerWidth = 240;
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
+  const [data, setData] = React.useState(undefined);
   const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
 
@@ -58,9 +59,46 @@ export default function App() {
     }
   });
 
+  const symbols = ["IBM", "AMZN", "GOOG", "MSFT", "TSLA", "FB", "JPM", "V", "NVDA", "NFLX"];
+  const baseURL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbols[7]}&interval=5min&apikey=V41KZM1499BW2QG2`
+
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setData(response.data);
+    });
+  }, []);
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
+
+  const makeitAnalytics = () => {
+    let arr = []
+    const A = data['Time Series (5min)']
+    const B = Object.keys(A)
+    B.forEach((key) => {
+      let perfact = {
+        open: parseFloat(A[key]['1. open']),
+        high: parseFloat(A[key]['2. high']),
+        low: parseFloat(A[key]['3. low']),
+        close: parseFloat(A[key]['4. close']),
+        volume: parseFloat(A[key]['5. volume']),
+      }
+
+      arr.push({
+        name: key,
+        ...perfact
+      })
+    })
+    return arr
+  }
+
+  if (!data) {
+    return <div>
+      loading....
+    </div>
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -74,11 +112,9 @@ export default function App() {
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open
-          })}
-        >
+          })}>
           <div className={classes.drawerHeader} />
-          {/*  this is body */}
-          <Content />
+          {data && <Content data={makeitAnalytics()} />}
         </main>
       </div>
     </ThemeProvider>
