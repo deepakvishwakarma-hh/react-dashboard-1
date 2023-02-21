@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
 
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [symbol, setSymbol] = useState('IBM')
   const [darkMode, setDarkMode] = useState(true);
   const [data, setData] = React.useState(undefined);
