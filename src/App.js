@@ -60,7 +60,6 @@ export default function App() {
     }
   });
 
-  const symbols = ["IBM", "AMZN", "GOOG", "MSFT", "TSLA", "FB", "JPM", "V", "NVDA", "NFLX"];
 
   const baseURL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=V41KZM1499BW2QG2`
 
@@ -78,7 +77,9 @@ export default function App() {
     let arr = []
     const A = data['Time Series (5min)']
     const B = Object.keys(A)
-    B.forEach((key) => {
+    const C = B.slice(0, 6)
+    console.log(C)
+    C.forEach((key) => {
       let perfact = {
         open: parseFloat(A[key]['1. open']),
         high: parseFloat(A[key]['2. high']),
@@ -105,18 +106,13 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <Header
-          handleDrawerToggle={handleDrawerToggle}
-          toggleDarkMode={toggleDarkMode}
-          darkMode={darkMode}
-        />
+        <Header handleDrawerToggle={handleDrawerToggle} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         <Sidebar handleDrawerClose={handleDrawerClose} open={open} />
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open
           })}>
           <div className={classes.drawerHeader} />
-
           {data && <Content meta={data['Meta Data']} data={makeitAnalytics()} setSymbol={setSymbol} symbol={symbol} />}
         </main>
       </div>
